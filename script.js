@@ -134,7 +134,7 @@ let user = JSON.parse(localStorage.getItem("currentUser"));
 if(!user){
     window.location.href = "login.html";
 }
-import { db } from 'js/firebase.js'; 
+import { db } from './js/firebase.js'; 
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 async function loadFlowers() {

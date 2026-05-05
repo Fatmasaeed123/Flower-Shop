@@ -1,5 +1,5 @@
 // 1. بنادي على 'db' من ملف الإعدادات بتاعك (لاحظي .js في الآخر)
-import { db } from 'js/firebase.js';
+import { db } from './js/firebase.js';
 // 2. بنادي على الأدوات اللي بتخليني أضيف داتا لـ Firestore من سيرفرات جوجل
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
