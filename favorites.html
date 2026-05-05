@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favorites</title>
+
+<link rel="stylesheet" href="./style.css">
+
+<style>
+body{
+    background:#f9f9f9;
+}
+
+.fav-container{
+    padding:100px 9%;
+}
+
+.fav-container h2{
+    font-size:3rem;
+    margin-bottom:2rem;
+    color:#333;
+}
+
+.fav-item{
+    display:flex;
+    align-items:center;
+    gap:2rem;
+    background:#fff;
+    padding:1.5rem;
+    margin-bottom:1.5rem;
+    border-radius:.5rem;
+    box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+.fav-item img{
+    width:100px;
+    height:100px;
+    object-fit:cover;
+    border-radius:.5rem;
+}
+
+.fav-item h3{
+    font-size:1.8rem;
+    color:#333;
+}
+
+.fav-item p{
+    font-size:1.6rem;
+    color:#e84393;
+}
+
+.remove-btn{
+    margin-left:auto;
+    background:red;
+    color:#fff;
+    padding:.5rem 1rem;
+    border:none;
+    cursor:pointer;
+    border-radius:.5rem;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="fav-container">
+    <h2>Your Favorites </h2>
+
+    <div id="fav-items"></div>
+</div>
+
+
+<script src="./js/favorites.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+    <link rel="stylesheet" href="./style.css"> 
+</head>
+
+<body>
+
+<div class="box" style="text-align: center; padding: 50px;">
+    <h1>Order Placed Successfully </h1>
+    <p>Thank you for your purchase!</p>
+    
+    <div id="order-details">
+        <!-- البيانات بتظهر هنا بالـ JS اللي عملناه قبل كدة -->
+    </div>
+    
+    <br>
+    <!-- الزرار الجديد لمشاهدة تاريخ الطلبات -->
+    <a href="./order.html" class="btn" style="background: #333; margin-bottom: 10px;">View My Orders</a> 
+    <br>
+    <a href="./index.html" class="btn">Back Home</a>
+</div>
+
+<!-- في ملف success.html أو orderconfirm.html -->
+<script>
+window.onload = function(){
+    // بنقرأ البيانات اللي لسه مبعوثة للفايربيز حالا
+    let lastOrder = JSON.parse(localStorage.getItem("currentOrder"));
+
+    let detailsDiv = document.getElementById("order-details");
+
+    if(!lastOrder){
+        detailsDiv.innerHTML = `<p>No recent order found</p>`;
+        return;
+    }
+    
+    detailsDiv.innerHTML = `
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; display: inline-block; text-align: left; margin-top: 20px; border: 1px solid #eee;">
+            <p><strong>Customer Name:</strong> ${lastOrder.customer.name}</p>
+            <p><strong>Address:</strong> ${lastOrder.customer.address}</p>
+            <p><strong>Total Paid:</strong> ${lastOrder.total} EGP</p>
+            <hr>
+            <p><strong>Items:</strong></p>
+            <ul>
+                ${lastOrder.items.map(item => `<li>${item.name} (x${item.quantity || 1})</li>`).join('')}
+            </ul>
+        </div>
+    `;
+};
+</script>
+</body>
+</html>

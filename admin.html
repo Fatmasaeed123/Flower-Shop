@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Orders</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        .admin-container { padding: 100px 9%; }
+        table { width: 100%; border-collapse: collapse; margin-top: 2rem; background: #fff; }
+        th, td { padding: 1.5rem; text-align: left; border-bottom: 1px solid #eee; font-size: 1.1rem; }
+        th { background-color: var(--black); color: #fff; }
+        .status-pending { color: orange; font-weight: bold; }
+        .btn-view { background: var(--pink); color: #fff; padding: .5rem 1rem; border-radius: .5rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Customer Orders 📋</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Total Price</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="orders-table-body">
+                <!-- الطلبات هتظهر هنا بالـ JS -->
+            </tbody>
+        </table>
+    </div>
+    <script type="module" src="./js/admin.js"></script>
+</body>
+</html>

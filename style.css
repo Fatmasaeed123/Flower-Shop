@@ -89,6 +89,12 @@ header .fa-bars{
     border: .1rem solid black;
     display: none;
 }
+header button{
+  width: 30px;
+  font-size: 25px;
+  background-color: white;
+  cursor: pointer;
+}
 .home{
     display: flex;
     align-items: center;
@@ -527,59 +533,113 @@ header .fa-bars{
 
 .footer .credit span {
   color: #e84393;
-}
-/* media query */
-@media (max-width:991px){
-    html{
-    font-size: 55%;   
-}
-header{
-    padding:2rem ;
-}
-section{
-    padding:2rem ;
-}
-.home{
-    background-position: left ;
-}
-}
-@media (max-width:768px){
-    html .fa-bars{
-        display:block ;
+}/* --- التعديل الشامل للـ Responsive --- */
+
+@media (max-width: 991px) {
+    html {
+        font-size: 55%;
     }
-    header .navbar{
-        position: absolute;
-        left: 0; right: 0; top: 0;
-        background:#eee;
-        border-top: .1rem solid #333;
+    header {
+        padding: 2rem;
     }
-    header .navbar a{
-        margin:1.5rem;
-        padding: 1.5rem;
-        background: #fff;
-        border: .1rem solid  rgba(0, 0 , 0 , .1);
-        display: block;
+    section {
+        padding: 2rem;
     }
-    .home .content h3{
-        font-size: 5rem;
+}
+
+@media (max-width: 768px) {
+    /* تنسيق الهيدر ليكون مرن */
+    header {
+        display: flex;
+        justify-content: space-between; /* توزيع العناصر بعيد عن بعض */
+        align-items: center;
+        padding: 1.5rem 5%;
+        position: relative;
     }
-    .home .content span{
+
+    /* إظهار أيقونة القائمة وتنسيقها */
+    header .fa-bars {
+        display: block !important;
         font-size: 2.5rem;
+        cursor: pointer;
+        color: #333;
     }
-    .icons-container .icons h3{
-    font-size: 1.3rem;
-}
-.icons-container .icons span{
-    font-size: 1.7rem;
+
+    /* تنسيق اللوجو في الموبايل */
+    header .logo {
+        font-size: 2.2rem;
+        margin: 0 auto 0 1.5rem; /* بيسيب مسافة بسيطة جنب القائمة */
+    }
+
+    /* تنسيق أيقونات السلة والبروفايل */
+    header .icons {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    header .icons a, 
+    header .icons div {
+        font-size: 2rem;
+    }
+
+    /* تنسيق الناف بار (القائمة المخفية) */
+    header .navbar {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: #fff;
+        border-top: .1rem solid rgba(0,0,0,.1);
+        flex-direction: column; /* العناصر تحت بعض */
+        display: none; /* مخفية افتراضياً */
+        padding: 1rem 0;
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    }
+
+    /* لما الكلاس ده يتضاف بالـ JS القائمة تظهر */
+    header .navbar.active {
+        display: flex;
+    }
+
+    header .navbar a {
+        display: block;
+        margin: 1rem 2rem;
+        padding: 1.5rem;
+        font-size: 2rem;
+        background: #f9f9f9;
+        border-radius: .5rem;
+        text-align: center;
+    }
+
+    /* تعديل محتوى الهوم عشان ميتداخلش مع الصور */
+    .home .content h3 {
+        font-size: 4rem;
+    }
+    .home .content span {
+        font-size: 2rem;
+    }
 }
 
+@media (max-width: 450px) {
+    html {
+        font-size: 50%;
+    }
+    header {
+        padding: 1.5rem 2%; /* مساحة أصغر للأجهزة الرفيعة جداً */
+    }
+    header .logo {
+        font-size: 1.8rem;
+    }
+    .heading {
+        font-size: 3rem;
+    }
 }
-@media (max-width:450px){
-    html{
-    font-size:50%;   
+#cart-count {
+    background: #e84393; /* نفس لون الورد اللي بتستخدميه */
+    color: white;
+    border-radius: 50%;
+    padding: 3px 8px;
+    font-size: 1.2rem;
+    position: relative;
+    top: -10px;
+    left: -5px;
+    font-family: sans-serif;
 }
-.heading{
-    font-size: 3rem;
-}
-}
-

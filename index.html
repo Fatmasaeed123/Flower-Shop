@@ -2,42 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible"content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>complete responsive flower website design tutorial</title>
+<title>Flower Shop</title>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="./style.css">
+
 </head>
-<body>  
-  <!--navbar-->
+
+<body>
+
+<!-- ===== Navbar ===== -->
 <header> 
-    <input type="checkbox" name="" id="toggler">  
+    <input type="checkbox" id="toggler">  
     <label for="toggler" class="fas fa-bars"></label>
+
     <a href="#" class="logo"><span>flower.</span></a>
+
     <nav class="navbar">
-       <a href="#home" >home</a>
-        <a href="#about" >about</a>
-        <a href="#products" >products</a>
-        <a href="#review" >review</a>
-        <a href="#content" >content</a>
+        <a href="#home">home</a>
+        <a href="#about">about</a>
+        <a href="#products">products</a>
+        <a href="#reviews">reviews</a>
+        <a href="#contact">contact</a>
     </nav>
+
     <div class="icons">
-      <a href="#" class=" fa-solid fa-heart"></a>
-      <a href="#" class="fa-solid fa-cart-shopping"></a>
-      <a href="#" class="fa-solid fa-user"></a>
+      <a href="./favorites.html" class="fa-solid fa-heart"></a>
+      <a href="./cart.html" class="fas fa-shopping-cart">
+        <span id="cart-count">0</span>
+    </a>
+      <a href="login.html" class="fa-solid fa-user"></a>
+    <a href="#" id="logout-btn" style="display:none; font-size: 1.4rem; color: red; margin-left: 10px;">Logout</a>
+    <a href="./order.html" class="fas fa-history" title="My Orders"></a> 
+    <div id="user-btn" class="fas fa-user"></div>
+    
     </div>
 </header> 
-<!--HOME-->
-  <section class="home" id="home">
+
+<!-- ===== HOME ===== -->
+<section class="home" id="home">
     <div class="content">
         <h3>fresh flowers</h3>
-        <span> natural & beautiful flowers </span>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae loborum ut minus 
-            corrupti dolorum dolore assumenda iste voluptate dolorem pariatur.</p>
-            <a href="#" class="btn">shop now</a>
-           </div>
-  </section>
-  <!--about-->
+        <span>natural & beautiful flowers</span>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <a href="#products" class="btn">shop now</a>
+    </div>
+</section>
+<!--about-->
  <section class="about" id="about">
     <h1 class="heading"> <span> about </span> us </h1>
  <div class="row">
@@ -59,237 +71,17 @@
         </div> 
  </div>
  </section>
- 
- <section class="icons-container">
-   <div class="icons">
-       <img src="https://img.icons8.com/?size=100&id=3562&format=png&color=000000" alt="">
-         <div class="info">
-            <h3>free delivery</h3>
-            <span>on all orders</span>
-         </div>   
-     </div>
-     
-   <div class="icons">
-     <img src="https://img.icons8.com/?size=100&id=42326&format=png&color=000000" alt="">
-         <div class="info">
-            <h3>10 days returns</h3>
-            <span>moneyback guarantee</span>
-         </div>   
-     </div>
-     
-     <div class="icons">
-     <img src="https://img.icons8.com/?size=100&id=338&format=png&color=000000" alt="">
-         <div class="info">
-            <h3>offer & gifts</h3>
-            <span>on all orders</span>
-         </div>   
-     </div>
+<!-- ===== PRODUCTS ===== -->
+<!-- Section المنتجات -->
+<section class="products" id="products">
 
-     <div class="icons">
-     <img src="https://img.icons8.com/?size=100&id=45742&format=png&color=000000" alt="">
-         <div class="info">
-            <h3>secure paymens</h3>
-            <span>protected by paypal</span>
-         </div>   
- </section> 
- <!--products-->
- <section class="products" id="products">
+    <h1 class="heading"> latest <span>products</span> </h1>
 
-  <h1 class="heading"> latest <span>products</span></h1>
-
-  <div class="box-container">
-
-    <!-- Product 1 -->
-    <div class="box">
-      <span class="discount">-10%</span>
-
-      <div class="image">
-        <img src="./images/082ff8e683458e3ce0bcaefd27d027c0.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$449.99 <span>$499.99</span></div>
-      </div>
+    <!-- السطر ده هو الأهم: الـ ID لازم يكون flower-container -->
+    <div class="box-container" id="flower-container">
+        <!-- سيبي المكان ده فاضي تماماً، الـ JS هيملأه بالورد من الفايربيز -->
     </div>
 
-    <!-- Product 2 -->
-    <div class="box">
-      <span class="discount">-15%</span>
-
-      <div class="image">
-        <img src="./images/0f1f3910b738e46015980c32369e3b16.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$424.99 <span>$499.99</span></div>
-      </div>
-    </div>
-
-    <!-- Product 3 -->
-    <div class="box">
-      <span class="discount">-20%</span>
-
-      <div class="image">
-        <img src="./images/a55174c384bd2da459f2460758863cbf.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$399.99 <span>$499.99</span></div>
-      </div>
-    </div>
-
-    <!-- Product 4 -->
-    <div class="box">
-      <span class="discount">-5%</span>
-
-      <div class="image">
-        <img src="./images/ac1184416f00e2f12a3594eded58b165.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$474.99 <span>$499.99</span></div>
-      </div>
-    </div>
-
-    <!-- Product 5 -->
-    <div class="box">
-      <span class="discount">-7%</span>
-
-      <div class="image">
-        <img src="./images/cfa486c1cf847ba2375dedcaa8c638e5.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$412.99 <span>$415.99</span></div>
-      </div>
-    </div>
-
-    <!-- Product 6 -->
-    <div class="box">
-      <span class="discount">-25%</span>
-
-      <div class="image">
-        <img src="./images/b6df1eaff578e01d9e857f064abac447.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$374.99 <span>$499.99</span></div>
-      </div>
-    </div>
-
-    <!-- Product 7 -->
-    <div class="box">
-      <span class="discount">-50%</span>
-
-      <div class="image">
-        <img src="./images/29f0cd2025f4064cf4126760073f3ed3.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$249.99 <span>$499.99</span></div>
-      </div>
-    </div>
-
-    <!-- Product 8 -->
-    <div class="box">
-      <span class="discount">-25%</span>
-
-      <div class="image">
-        <img src="./images/da36b4974a6271ddeaeec1a7056af2b8.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$374.99 <span>$499.99</span></div>
-      </div>
-    </div>
-
-    <!-- Product 9 -->
-    <div class="box">
-      <span class="discount">-25%</span>
-
-      <div class="image">
-        <img src="./images/e733ed49fb08ed3e73650d90fa04c46b.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$374.99 <span>$499.99</span></div>
-      </div>
-    </div>
-
-    <!-- Product 10 -->
-    <div class="box">
-      <span class="discount">-25%</span>
-
-      <div class="image">
-        <img src="./images/9370e3f359041ff4e3ae470e15e8a4cd.jpg" alt="">
-        <div class="icons">
-          <a href="#" class="fa-solid fa-heart"></a>
-          <a href="#" class="cart-btn">add to cart</a>
-          <a href="#" class="fa-solid fa-share"></a>
-        </div>
-      </div>
-
-      <div class="content">
-        <h3>flower part</h3>
-        <div class="price">$374.99 <span>$499.99</span></div>
-      </div>
-    </div>
-
-  </div>
 </section>
 <section class="reviews" id="reviews">
 
@@ -368,36 +160,45 @@
 
   </div>
 </section>
+
+<!-- ===== CONTACT ===== -->
 <section class="contact" id="contact">
 
   <h1 class="heading"> contact <span>us</span> </h1>
 
   <div class="contact-container">
 
-    <form action="">
-      <h3>contact us for problems</h3>
+    <form id="contactForm">
+  <h3>contact us for problems</h3>
 
-      <input type="text" placeholder="your name" class="box">
-      <input type="email" placeholder="your email" class="box">
-      <input type="text" placeholder="subject" class="box">
+  <!-- ضفنا id="name" -->
+  <input type="text" id="name" placeholder="your name" class="box" required>
+  
+  <!-- ضفنا id="email" -->
+  <input type="email" id="email" placeholder="your email" class="box" required>
+  
+  <input type="text" placeholder="subject" class="box">
 
-      <textarea
-        placeholder="write your message"
-        class="box"
-        cols="30"
-        rows="10"></textarea>
+  <!-- ضفنا id="message" -->
+  <textarea
+    id="message" 
+    placeholder="write your message"
+    class="box"
+    cols="30"
+    rows="10"
+    required></textarea>
 
-      <input type="submit" value="send message" class="btn">
-    </form>
-
+  <input type="submit" value="send message" class="btn">
+</form>
   </div>
 
 </section>
+
+<!-- ===== Footer ===== -->
 <footer class="footer">
 
   <div class="footer-container">
 
-    <!-- About -->
     <div class="footer-box">
       <h3>about us</h3>
       <p>
@@ -406,7 +207,6 @@
       </p>
     </div>
 
-    <!-- Quick Links -->
     <div class="footer-box">
       <h3>quick links</h3>
       <a href="#home">home</a>
@@ -415,7 +215,6 @@
       <a href="#contact">contact</a>
     </div>
 
-    <!-- Contact Info -->
     <div class="footer-box">
       <h3>contact info</h3>
       <a href="#">+20 123 456 789</a>
@@ -423,7 +222,6 @@
       <a href="#">Egypt</a>
     </div>
 
-    <!-- Social -->
     <div class="footer-box">
       <h3>follow us</h3>
       <div class="social">
@@ -437,9 +235,18 @@
   </div>
 
   <div class="credit">
-    created by <span>Team not found</span> | all rights reserved
+    created by <span>Fatma</span> | all rights reserved
   </div>
+
 </footer>
+
+<!-- ===== JS ===== -->
+ <script type="module" src="./script.js"></script>
+<script type="module" src="./js/cart-page.js"></script>
+<script type="module" src="./js/favorites.js"></script>
+
+<script type="module" src="./js/contact.js"></script>
+<script type="module" src="./js/loadProducts.js"></script>
+
 </body>
 </html>
-

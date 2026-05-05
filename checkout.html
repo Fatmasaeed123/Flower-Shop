@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Flower Shop</title>
+
+    <!-- رابط ملف الاستايل الأساسي بتاعك -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            /* تأكدي إن الألوان دي ماشية مع الـ UI المينيماليزم بتاعك */
+            --pink: #e84393;
+            --black: #333;
+            --white: #fff;
+            --light-color: #666;
+            --bg-color: #f9f9f9;
+        }
+
+        body {
+            background-color: var(--bg-color);
+        }
+
+        .checkout-container {
+            padding: 100px 9%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .checkout-container h2 {
+            font-size: 2.5rem;
+            color: var(--black);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        form {
+            max-width: 500px;
+            width: 100%;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            color: var(--black);
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: .5rem;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--pink);
+        }
+
+        /* الجزء الجديد لملخص السعر */
+        #checkout-summary {
+            background: #fff5f8;
+            padding: 1.5rem;
+            border-radius: .5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--pink);
+            font-size: 1.3rem;
+            color: var(--black);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #checkout-summary span {
+            font-weight: bold;
+            color: var(--pink);
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 1.2rem;
+            border-radius: .5rem;
+            background: var(--black);
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: .3s;
+            border: none;
+        }
+
+        .btn:hover {
+            background: var(--pink);
+            letter-spacing: .1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-container">
+
+        <h2>Complete Your Order 🌸</h2>
+
+        <form id="checkoutForm">
+            
+            <div class="form-group">
+                <input id="name" type="text" placeholder="Your Full Name" required>
+            </div>
+
+            <div class="form-group">
+                <input id="phone" type="text" placeholder="Phone Number" required>
+            </div>
+
+            <div class="form-group">
+                <input id="address" type="text" placeholder="Delivery Address" required>
+            </div>
+
+            <!-- ملخص السعر بيظهر هنا تلقائياً عن طريق JS -->
+            <div id="checkout-summary">
+                Total to Pay: <span id="display-total">0 EGP</span>
+            </div>
+
+            <button class="btn" type="submit">Confirm Order</button>
+
+        </form>
+
+    </div>
+
+    <script type="module" src="./js/checkout.js"></script>
+
+</body>
+</html>

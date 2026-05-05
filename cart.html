@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+.cart-container{
+    padding:100px 9% 50px;
+}
+
+.cart-container h2{
+    font-size:3rem;
+    margin-bottom:2rem;
+}
+
+.cart-item{
+    display:flex;
+    align-items:center;
+    gap:2rem;
+    margin-bottom:2rem;
+    background:#fff;
+    padding:1rem;
+    border-radius:.5rem;
+    box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+.cart-item img{
+    width:100px;
+    height:100px;
+    object-fit:cover;
+}
+
+.cart-item h3{
+    font-size:1.8rem;
+}
+
+.cart-item p{
+    font-size:1.6rem;
+    color:#e84393;
+}
+
+.remove-btn{
+    margin-left:auto;
+    background:red;
+    color:#fff;
+    padding:.5rem 1rem;
+    cursor:pointer;
+    border-radius:.5rem;
+}
+
+.total{
+    font-size:2rem;
+    margin-top:2rem;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="cart-container">
+    <h2>Your Cart</h2>
+
+    <div id="cart-items"></div>
+
+    <div class="total" id="total-price"></div>
+    <button class="btn" onclick="checkout()">Checkout</button>
+</div>
+
+<script type="module" src="./js/cart-page.js"></script>
+
+</body>
+</html>
