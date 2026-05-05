@@ -1,22 +1,49 @@
+// التعديل هنا: السكريبت هيدخل فولدر js عشان يلاقي firebase.js
 import { db } from './js/firebase.js'; 
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-// --- 1. دوال الـ Firebase والمنتجات ---
+// --- 1. دالة جلب المنتجات من Firebase (جدول products) ---
 async function loadFlowers() {
     try {
-        const querySnapshot = await getDocs(collection(db, "flowers"));
+        const querySnapshot = await getDocs(collection(db, "products")); //
+        const productsContainer = document.querySelector(".box-container"); 
+        
+        if (!productsContainer) return; 
+
+        productsContainer.innerHTML = ""; 
+
         querySnapshot.forEach((doc) => {
-            console.log(doc.data());
-            // هنا ضيفي كود الـ Append بتاعك لعرض الورد
+            const data = doc.data(); //
+            const productHTML = `
+                <div class="box">
+                    <span class="price"> ${data.price} EGP </span>
+                    <img src="${data.image}" alt="${data.name}">
+                    <h3>${data.name}</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart fav-btn" data-id="${doc.id}"></a>
+                        <a href="#" class="cart-btn" data-id="${doc.id}">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+            `;
+            productsContainer.innerHTML += productHTML;
         });
+        
+        attachEventListeners(); 
+
     } catch (error) {
-        console.error("Error loading flowers: ", error);
+        console.error("Error loading products: ", error);
     }
 }
-// استدعاء الدالة
-loadFlowers();
 
-// --- 2. إدارة السلة (Cart) والعدّاد ---
+// --- 2. دالة تحديث عداد السلة ---
 function updateCartCount() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
@@ -26,12 +53,11 @@ function updateCartCount() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    updateCartCount();
-
+// --- 3. تنظيم الأحداث (Event Listeners) ---
+function attachEventListeners() {
     const cartButtons = document.querySelectorAll(".cart-btn");
     cartButtons.forEach(btn => {
-        btn.addEventListener("click", (e) => {
+        btn.onclick = (e) => {
             e.preventDefault();
             let box = btn.closest(".box");
             let id = btn.getAttribute("data-id"); 
@@ -49,34 +75,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartCount(); // تحديث الرقم فوراً
+            updateCartCount();
             alert(`${name} added to cart! `);
-        });
+        };
     });
 
-    // --- 3. القائمة الجانبية (Menu) - حماية ضد الـ Null ---
-    let menu = document.querySelector('#menu-bars');
-    let navbar = document.querySelector('.navbar');
-
-    if (menu && navbar) {
-        menu.onclick = () => {
-            menu.classList.toggle('fa-times');
-            navbar.classList.toggle('active');
-        }
-
-        window.onscroll = () => {
-            menu.classList.remove('fa-times');
-            navbar.classList.remove('active');
-        }
-    }
-
-    // --- 4. المفضلة (Favorites) ---
     const favButtons = document.querySelectorAll(".fav-btn");
     favButtons.forEach(btn => {
-        btn.addEventListener("click", (e) => {
+        btn.onclick = (e) => {
             e.preventDefault();
             let box = btn.closest(".box");
-            let id = btn.dataset.id || box.querySelector(".cart-btn").dataset.id;
+            let id = btn.dataset.id;
             let item = {
                 id: id,
                 name: box.querySelector("h3").innerText,
@@ -97,10 +106,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Added to Favorites ");
             }
             localStorage.setItem("favorites", JSON.stringify(favorites));
-        });
+        };
     });
+}
 
-    // --- 5. تسجيل الدخول والـ UI ---
+// --- 4. تشغيل الأكواد عند تحميل الصفحة ---
+document.addEventListener("DOMContentLoaded", () => {
+    updateCartCount();
+    loadFlowers(); 
+
+    let menu = document.querySelector('#menu-bars');
+    let navbar = document.querySelector('.navbar');
+
+    if (menu && navbar) {
+        menu.onclick = () => {
+            menu.classList.toggle('fa-times');
+            navbar.classList.toggle('active');
+        };
+    }
+
+    window.onscroll = () => {
+        if (menu && navbar) {
+            menu.classList.remove('fa-times');
+            navbar.classList.remove('active');
+        }
+    };
+
     const userIcon = document.querySelector(".fa-user");
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     const userData = JSON.parse(localStorage.getItem("userData"));
@@ -110,29 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
         userIcon.href = "#"; 
     }
 
-    // --- 6. تسجيل الخروج (Logout) ---
     const logoutBtn = document.getElementById("logout-btn");
     if (logoutBtn) {
-        if (isLoggedIn === "true") {
-            logoutBtn.style.display = "inline-block"; 
-        }
-        logoutBtn.addEventListener("click", (e) => {
+        if (isLoggedIn === "true") logoutBtn.style.display = "inline-block";
+        logoutBtn.onclick = (e) => {
             e.preventDefault();
             localStorage.removeItem("isLoggedIn");
             alert("Logged out successfully! ");
             window.location.href = "index.html";
-        });
-    }
-
-    // --- 7. أيقونة الطلبات (Orders) ---
-    const iconsContainer = document.querySelector(".icons");
-    if (iconsContainer && isLoggedIn === "true") {
-        const ordersLink = document.createElement("a");
-        ordersLink.href = "orders.html";
-        ordersLink.innerHTML = '<i class="fas fa-shopping-bag"></i>'; 
-        ordersLink.title = "My Orders";
-        ordersLink.style.fontSize = "2.5rem";
-        ordersLink.style.marginLeft = "1.5rem";
-        iconsContainer.appendChild(ordersLink);
+        };
     }
 });
