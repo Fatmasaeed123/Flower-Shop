@@ -1,4 +1,4 @@
-import { auth } from "./firebase";
+import { auth } from "js/firebase.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
 let form = document.getElementById("signupForm");

@@ -1,4 +1,4 @@
-import { db } from '/js/firebase.js'; // تأكدي إن المسار صح حسب مشروعك
+import { db } from 'js/firebase.js'; // تأكدي إن المسار صح حسب مشروعك
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 // التأكد من تسجيل الدخول
