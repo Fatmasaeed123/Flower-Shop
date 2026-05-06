@@ -1,77 +1,74 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById("fav-items");
+    displayFavorites();
+});
 
-    // 1. السطر ده هو أهم تعديل: لو العنصر مش موجود في الصفحة دي، اقفل الملف فوراً ومطلعش إيرور
-    if (!container) return; 
-
-    function renderFavorites() {
-        let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-        // تنظيف المكان قبل العرض
-        container.innerHTML = "";
-
-        // 2. لو مفيش منتجات مفضلة
-        if (favorites.length === 0) {
-            container.innerHTML = `
-                <div style="text-align:center; width:100%;">
-                    <h2 style="font-size: 2rem; color: #666;">No favorites yet ❤️</h2>
-                    <a href="index.html" class="btn" style="display:inline-block; margin-top:1rem;">Back to Shop</a>
-                </div>`;
-            return;
-        }
-
-        // 3. عرض المنتجات المفضلة
-        favorites.forEach((item, index) => {
-            container.innerHTML += `
-                <div class="fav-item">
-                    <img src="${item.image}" alt="${item.name}">
-                    <div class="details">
-                        <h3>${item.name}</h3>
-                        <p>${item.price}</p>
-                    </div>
-                    <div class="actions" style="margin-left: auto; display: flex; gap: 10px;">
-                        <button onclick="addToCartFromFav(${index})" class="btn" style="padding: .5rem 1rem; font-size: 1.2rem; background: #333;">
-                            Add to Cart
-                        </button>
-                        <button onclick="removeFav(${index})" class="remove-btn">
-                            Remove
-                        </button>
-                    </div>
-                </div>
-            `;
-        });
+function displayFavorites() {
+    // التعديل هنا: بننادي على الـ ID اللي موجود في الـ HTML بتاعك
+    const favContainer = document.getElementById("fav-items"); 
+    
+    if (!favContainer) {
+        console.error("Element with id 'fav-items' not found!");
+        return;
     }
 
-    // وظيفة الحذف من المفضلة
-    window.removeFav = function(index) {
-        let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-        favorites.splice(index, 1); 
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-        renderFavorites(); 
-    };
+    // جلب البيانات من الـ LocalStorage
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-    // وظيفة الإضافة للسلة من المفضلة
-    window.addToCartFromFav = function(index) {
-        let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-        let item = favorites[index];
-        
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        
-        let existingItem = cart.find(c => c.name === item.name);
-        if (existingItem) {
-            existingItem.quantity = (existingItem.quantity || 1) + 1;
-        } else {
-            cart.push({
-                ...item,
-                price: parseFloat(item.price.replace(/[^0-9.]/g, "")), 
-                quantity: 1
-            });
-        }
-        
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${item.name} added to cart! `);
-    };
+    // لو المفضلة فاضية
+    if (favorites.length === 0) {
+        favContainer.innerHTML = '<h3 style="font-size: 2rem; color: #666; text-align: center; margin-top: 2rem;">Your wishlist is empty! 🌸</h3>';
+        return;
+    }
 
-    // تشغيل الدالة لأول مرة
-    renderFavorites();
-});
+    favContainer.innerHTML = "";
+    favorites.forEach(item => {
+        // رسم العناصر بنفس الستايليستيك (fav-item) اللي إنتِ كاتباه في الـ CSS
+        const productHTML = `
+            <div class="fav-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="info">
+                    <h3>${item.name}</h3>
+                    <p>${item.price}</p>
+                </div>
+                <button class="remove-btn" data-id="${item.id}">Remove</button>
+                <button class="cart-btn" data-id="${item.id}" 
+                    style="background: var(--pink, #e84393); color:#fff; padding:.5rem 1rem; border:none; border-radius:.5rem; cursor:pointer; margin-left:10px;">
+                    Add to Cart
+                </button>
+            </div>`;
+        favContainer.innerHTML += productHTML;
+    });
+
+    setupFavActions();
+}
+
+function setupFavActions() {
+    // زرار الحذف
+    document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.onclick = (e) => {
+            e.preventDefault();
+            let id = btn.getAttribute("data-id");
+            let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            favorites = favorites.filter(fav => fav.id !== id);
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+            displayFavorites(); // إعادة تحديث الصفحة
+        };
+    });
+
+    // زرار الإضافة للسلة من داخل المفضلة
+    document.querySelectorAll(".cart-btn").forEach(btn => {
+        btn.onclick = (e) => {
+            e.preventDefault();
+            let itemElement = btn.closest(".fav-item");
+            let id = btn.getAttribute("data-id");
+            let name = itemElement.querySelector("h3").innerText;
+            let price = itemElement.querySelector("p").innerText;
+            let image = itemElement.querySelector("img").src;
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push({ id, name, price, image, quantity: 1 });
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${name} added to cart! 🛒`);
+        };
+    });
+}

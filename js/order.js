@@ -1,60 +1,67 @@
-import { db } from './js/firebase.js'; 
+import { db } from './firebase.js'; 
 import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const container = document.getElementById("orders-list");
+document.addEventListener("DOMContentLoaded", () => {
+    loadMyOrders();
+});
+
+async function loadMyOrders() {
+    const ordersContainer = document.getElementById("orders-list");
+    
+    if (!ordersContainer) return;
 
     try {
-        // 1. جلب الطلبات من Firestore مرتبة من الأحدث للأقدم
         const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
         const querySnapshot = await getDocs(q);
 
-        // 2. التحقق لو مفيش طلبات في الداتابيز
         if (querySnapshot.empty) {
-            container.innerHTML = `
-                <div style="text-align:center;">
-                    <h2 style="color:#999;">No orders have been placed yet. </h2>
-                    <a href="index.html" class="btn" style="display:inline-block; margin-top:1rem;">Shop Now</a>
-                </div>`;
+            ordersContainer.innerHTML = '<h3 style="text-align:center; font-size:2rem; color:#999; margin-top:5rem;">No orders yet! 🌸</h3>';
             return;
         }
 
-        container.innerHTML = ""; // مسح أي محتوى قديم (مثل Loading)
-
-        // 3. عرض الطلبات من الفايربيز
+        ordersContainer.innerHTML = "";
         querySnapshot.forEach((doc) => {
             const order = doc.data();
-            const orderId = doc.id; // استخدام الـ ID الحقيقي للوثيقة من فايربيز
+            
+            // سطر لمساعدتك في رؤية البيانات الحقيقية في المتصفح (F12 -> Console)
+            console.log("Order Data:", order);
 
-            container.innerHTML += `
+            let date = "Unknown Date";
+            if (order.createdAt) {
+                if (typeof order.createdAt.toDate === 'function') {
+                    date = order.createdAt.toDate().toLocaleDateString();
+                } else {
+                    date = new Date(order.createdAt).toLocaleDateString();
+                }
+            }
+
+            // محاولة إيجاد السعر في أكثر من مكان محتمل
+            const finalPrice = order.price || order.totalAmount || order.total || order.Total || "0";
+
+            const orderHTML = `
                 <div class="order-card">
                     <div class="order-header">
-                        <h3>Order ID: #${orderId.substring(0, 8)}</h3> 
-                        <span>Date: ${order.createdAt}</span>
+                        <h3>Order ID: #${doc.id.slice(0, 8)}</h3>
+                        <span>Date: ${date}</span>
                     </div>
                     <div class="order-details">
-                        <p><strong>Customer:</strong> ${order.customer.name}</p>
-                        <p><strong>Phone:</strong> ${order.customer.phone}</p>
-                        <p><strong>Address:</strong> ${order.customer.address}</p>
-                        <div class="order-items">
-                            <p><strong>Items:</strong></p>
-                            <ul>
-                                ${order.items.map(item => `
-                                    <li>${item.name} (x${item.quantity || 1}) - ${item.price}</li>
-                                `).join('')}
-                            </ul>
-                        </div>
-                        <div class="order-total">
-                            Total Paid: ${order.total} EGP
-                        </div>
-                        <p style="margin-top:10px; color: #e84393; font-weight: bold;">Status: ${order.status}</p>
+                        <p><strong>Customer Name:</strong> ${order.customerName || 'N/A'}</p>
+                        <p><strong>Address:</strong> ${order.address || 'N/A'}</p>
+                        <ul class="order-items">
+                            ${order.items ? order.items.map(item => `
+                                <li>${item.name} (x${item.quantity || 1}) - ${item.price}</li>
+                            `).join('') : '<li>No items found</li>'}
+                        </ul>
                     </div>
-                </div>
-            `;
+                    <div class="order-total">
+                        Total Amount: ${finalPrice} EGP
+                    </div>
+                </div>`;
+            
+            ordersContainer.innerHTML += orderHTML;
         });
 
     } catch (error) {
-        console.error("Error fetching orders: ", error);
-        container.innerHTML = `<p style="text-align:center; color:red;">Error loading orders. Please try again later.</p>`;
+        console.error("Error: ", error);
     }
-});
+}
